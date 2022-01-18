@@ -62,8 +62,11 @@ while True:
         'longitude': longitude,
         'latitude': latitude
     }
-
-    temp = round(random.uniform(0.0, 100.0), 2)
-    humi = round(random.uniform(0.0, 100.0), 2)
     client.publish('v1/devices/me/telemetry', json.dumps(collect_data), 1)
+    temp += round(random.uniform(-2.0, 2.0), 2)
+    humi += round(random.uniform(-2.0, 2.0), 2)
+    #simulate changing in longitude and latitude with offset
+    longitude += round(random.uniform(-0.001, 0.001), 4)
+    latitude += round(random.uniform(-0.001, 0.001), 4)
+
     time.sleep(PUBLISH_INTERVAL)
