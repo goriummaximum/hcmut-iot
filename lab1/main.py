@@ -54,9 +54,12 @@ latitude =  10.8231
 prev_longitude = 0.0
 prev_latitude = 0.0
 
+LONG_OFFSET_LIMIT = 0.0002
+LAT_OFFSET_LIMIT = 0.0002
+
 counter = 0
 
-PUBLISH_INTERVAL = 2
+PUBLISH_INTERVAL = 10
 
 while True:
     env_data = {
@@ -71,7 +74,7 @@ while True:
     longitude += round(random.uniform(-0.001, 0.001), 4)
     latitude += round(random.uniform(-0.001, 0.001), 4)
 
-    if ((longitude - prev_longitude) > 0.0002 or (latitude - prev_latitude) > 0.0002):
+    if (abs(longitude - prev_longitude) > LONG_OFFSET_LIMIT or abs(latitude - prev_latitude) > LAT_OFFSET_LIMIT):
         cor_data = {
             'longitude': longitude,
             'latitude': latitude
