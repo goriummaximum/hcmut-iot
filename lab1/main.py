@@ -51,22 +51,33 @@ humi = round(random.uniform(0.0, 100.0), 2)
 longitude = 106.6297
 latitude =  10.8231
 
+prev_longitude = 0.0
+prev_latitude = 0.0
+
 counter = 0
 
-PUBLISH_INTERVAL = 10
+PUBLISH_INTERVAL = 2
 
 while True:
-    collect_data = {
+    env_data = {
         'temperature': temp,
-        'humidity': humi,
-        'longitude': longitude,
-        'latitude': latitude
+        'humidity': humi
     }
-    client.publish('v1/devices/me/telemetry', json.dumps(collect_data), 1)
+    client.publish('v1/devices/me/telemetry', json.dumps(env_data), 1)
     temp += round(random.uniform(-2.0, 2.0), 2)
     humi += round(random.uniform(-2.0, 2.0), 2)
+
     #simulate changing in longitude and latitude with offset
     longitude += round(random.uniform(-0.001, 0.001), 4)
     latitude += round(random.uniform(-0.001, 0.001), 4)
+
+    if ((longitude - prev_longitude) > 0.0002 or (latitude - prev_latitude) > 0.0002):
+        cor_data = {
+            'longitude': longitude,
+            'latitude': latitude
+        }
+        client.publish('v1/devices/me/telemetry', json.dumps(cor_data), 1)
+        prev_longitude = longitude
+        prev_latitude = latitude
 
     time.sleep(PUBLISH_INTERVAL)
