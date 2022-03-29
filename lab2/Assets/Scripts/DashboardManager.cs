@@ -29,9 +29,9 @@ namespace MyDashboard
         [SerializeField]
         private CanvasGroup _canvasLayerBoard;
         [SerializeField]
-        public Text temperature_value;
+        public Gauge temperature_gauge;
         [SerializeField]
-        public Text humidity_value;
+        public Gauge humidity_gauge;
         [SerializeField]
         public ToggleSwitch controlLedSwitch;
         [SerializeField]
@@ -62,8 +62,8 @@ namespace MyDashboard
 
         public void updateStatus(StatusData status_data)
         {
-            temperature_value.text = string.Format("{0} °C", status_data.temperature);
-            humidity_value.text = string.Format("{0} %", status_data.humidity);
+            temperature_gauge.SetValue(float.Parse(status_data.temperature), "°C");
+            humidity_gauge.SetValue(float.Parse(status_data.humidity), "%");
         }
 
         public ControlData GetControlLedData() {
@@ -91,6 +91,7 @@ namespace MyDashboard
                 controlLedSwitch.toggle.isOn = true;
             else
                 controlLedSwitch.toggle.isOn = false;
+            Debug.Log(string.Format("Update control switch: {0}", controlLedSwitch.toggle.isOn));
         }
 
         public void UpdatePumpControlSwitch(ControlData controlData)

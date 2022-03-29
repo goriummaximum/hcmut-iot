@@ -90,6 +90,7 @@ public class ToggleSwitch : MonoBehaviour
     void OnSwitch(bool on) {
         ToggleColor(on);
         MoveIndicator(on);
+        Debug.Log(string.Format("OnSwitch Toggle: {0}", on));
     }
 
     private void ToggleColor(bool value) {

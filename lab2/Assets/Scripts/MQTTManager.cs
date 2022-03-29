@@ -171,5 +171,11 @@ namespace MyDashboard
         {
             Disconnect();
         }
+
+        public void CloseConnection() {
+            Disconnect();
+            dashboard_manager.updateLoginStatus("");
+            dashboard_manager.SwitchLayer();
+        }
     }
 }

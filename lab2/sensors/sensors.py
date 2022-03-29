@@ -48,7 +48,7 @@ client.on_message = recv_message
 
 random.seed(69)
 
-temp = round(random.uniform(0.0, 100.0), 2)
+temp = round(random.uniform(-20.0, 100.0), 2)
 humi = round(random.uniform(0.0, 100.0), 2)
 
 counter = 0
