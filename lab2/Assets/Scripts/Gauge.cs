@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Gauge : MonoBehaviour
 {
     public Transform needleTransform;
+    public float rotateTweenTime = 0.75f;
     
     public float MAX_VALUE_ANGLE = 195;
     public float MIN_VALUE_ANGLE = -25;
@@ -44,7 +46,8 @@ public class Gauge : MonoBehaviour
         if (this.value > valueMax) this.value = valueMax;
         if (this.value < valueMin) this.value = valueMin;
         valueText.text = string.Format("{0}{1}", this.value, unit);
-        needleTransform.eulerAngles = new Vector3(0, 0, GetValueRotation());
+        //needleTransform.eulerAngles = new Vector3(0, 0, GetValueRotation());
+        needleTransform.DORotate(new Vector3(0, 0, GetValueRotation()), rotateTweenTime);
     } 
 
     public float GetValueRotation() {
