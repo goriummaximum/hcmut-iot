@@ -37,7 +37,6 @@ namespace MyDashboard
         [SerializeField]
         public ToggleSwitch controlPumpSwitch;
 
-
         /// <summary>
         /// General elements
         /// </summary>
@@ -87,20 +86,13 @@ namespace MyDashboard
         public void UpdateLedControlSwitch(ControlData controlData)
         {
             controlLedSwitch.toggle.interactable = true;
-            if (controlData.status == "ON")
-                controlLedSwitch.toggle.isOn = true;
-            else
-                controlLedSwitch.toggle.isOn = false;
-            Debug.Log(string.Format("Update control switch: {0}", controlLedSwitch.toggle.isOn));
+            controlLedSwitch.toggle.isOn = controlData.status == "ON" ? true : false;
         }
 
         public void UpdatePumpControlSwitch(ControlData controlData)
         {
             controlPumpSwitch.toggle.interactable = true;
-            if (controlData.status == "ON")
-                controlPumpSwitch.toggle.isOn = true;
-            else
-                controlPumpSwitch.toggle.isOn = false;
+            controlPumpSwitch.toggle.isOn = controlData.status == "ON" ? true : false;
         }
 
         public void Fade(CanvasGroup _canvas, float endValue, float duration, TweenCallback onFinish)

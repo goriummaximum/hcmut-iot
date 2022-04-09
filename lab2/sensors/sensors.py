@@ -8,7 +8,7 @@ PORT = 1883
 USERNAME = "bkiot"
 PASSWORD = "12345678"
 CLIENTID = "sensors"
-STUDENT_ID = "1852161"
+STUDENT_ID = "1652437"
 
 
 def subscribed(client, userdata, mid, granted_qos):
