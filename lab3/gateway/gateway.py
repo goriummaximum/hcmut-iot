@@ -13,7 +13,7 @@ mess = ""
 THINGS_BOARD_ACCESS_TOKEN = "VJrNYpE2cgnjKpsIzRl4"
 bbc_port = "COM11"
 if len(bbc_port) > 0:
-    ser = serial.Serial(port=bbc_port, baudrate=9600)
+    ser = serial.Serial(port=bbc_port, baudrate=115200)
 
 def processData(data):
     data = data.replace("!", "")
