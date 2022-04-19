@@ -11,9 +11,9 @@ mess = ""
 #TODO: Add your token and your comport
 #Please check the comport in the device manager
 THINGS_BOARD_ACCESS_TOKEN = "VJrNYpE2cgnjKpsIzRl4"
-bbc_port = "COM10"
+bbc_port = "COM11"
 if len(bbc_port) > 0:
-    ser = serial.Serial(port=bbc_port, baudrate=115200)
+    ser = serial.Serial(port=bbc_port, baudrate=9600)
 
 def processData(data):
     data = data.replace("!", "")
@@ -44,18 +44,21 @@ def subscribed(client, userdata, mid, granted_qos):
 
 def recv_message(client, userdata, message):
     print("Received: ", message.payload.decode("utf-8"))
-    temp_data = {'value': True}
+    #temp_data = {'value': True}
     cmd = 1
 
     try:
         jsonobj = json.loads(message.payload)
         if jsonobj['method'] == "setLED":
+            #set cmd for Microblit platform
             cmd = 0 if (jsonobj['params'] == True) else 1
-            temp_data['value'] = jsonobj['params']
+            #send feedback to update button in Thingsboard via attribute getLED
+            temp_data['getLED'] = jsonobj['params']
             client.publish('v1/devices/me/attributes', json.dumps(temp_data), 1)
+
         if jsonobj['method'] == "setFAN":
             cmd = 2 if (jsonobj['params'] == True) else 3
-            temp_data['value'] = jsonobj['params']
+            temp_data['getFAN'] = jsonobj['params']
             client.publish('v1/devices/me/attributes', json.dumps(temp_data), 1)
     except:
         pass
